@@ -1,0 +1,39 @@
+name: Run JMeter Tests
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger the workflow on pull request to the main branch
+
+jobs:
+  jmeter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
+      - name: Download JMeter
+        run: |
+          wget https://downloads.apache.org//jmeter/binaries/apache-jmeter-5.4.3.tgz
+          tar -xzf apache-jmeter-5.4.3.tgz
+          mv apache-jmeter-5.4.3 jmeter
+
+      - name: Run JMeter script
+        run: |
+          ./jmeter/bin/jmeter -n -t path/to/your/script.jmx -l results.jtl
+
+      - name: Upload JMeter results
+        uses: actions/upload-artifact@v3
+        with:
+          name: jmeter-results
+          path: results.jtl
