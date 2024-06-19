@@ -30,10 +30,10 @@ jobs:
 
       - name: Run JMeter script
         run: |
-          ./jmeter/bin/jmeter -n -t ./saucedemo_jmeter_performance.jmx -l ./results.jtl
+          ./jmeter/bin/jmeter -n -t ./saucedemo_jmeter_performance.jmx -l ./results.csv
 
       - name: Upload JMeter results
         uses: actions/upload-artifact@v3
         with:
           name: jmeter-results
-          path: results.jtl
+          path: results.csv
