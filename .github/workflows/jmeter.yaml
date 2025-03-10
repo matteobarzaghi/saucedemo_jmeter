@@ -33,7 +33,7 @@ jobs:
           ./jmeter/bin/jmeter -n -t ./saucedemo_jmeter_performance.jmx -l ./results.csv
 
       - name: Upload JMeter results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: jmeter-results
           path: results.csv
